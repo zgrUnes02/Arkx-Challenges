@@ -12,29 +12,32 @@ const server = http.createServer((req , res) => {
         {name : 'titouan' , temperature : 24} ,
     ] ;
 
-    const myUrl = new URL(`http://localhost:4000${req.url}`) ;
-    const cityName = myUrl.search.slice(myUrl.search.indexOf('=') + 1) ;
-
-    try {
-        const cityNeed = weatherApi.filter(city => city.name == cityName) ;
-        if ( cityNeed.length != 0 ) {
-            const fs = require('fs') ;
-            fs.writeFile(`${cityName}.txt` , `The temperature of ${cityName} is ${cityNeed[0].temperature}` , (err) => {
-                if ( err ) {
-                    console.log('Something went wrong : ' , err) ;
-                }
-                else {
-                    console.log('The Has Been Created With Success !') ; 
-                }
-            }) ;
+    var myUrl = url.parse(req.url , true)
+    var cityName = myUrl.query.city
+    
+    if ( myUrl.pathname == '/weather' ) {
+        try {
+            const cityNeed = weatherApi.filter(city => city.name == cityName) ;
+            if ( cityNeed.length != 0 ) {
+                const fs = require('fs') ;
+                fs.writeFile(`${cityName}.txt` , `The temperature of ${cityName} is ${cityNeed[0].temperature}` , (err) => {
+                    if ( err ) {
+                        console.log('Something went wrong : ' , err) ;
+                    }
+                    else {
+                        console.log('The Has Been Created With Success !') ;
+                        res.end('The File Has Benn Created With Success !') ; 
+                    }
+                }) ;
+            }
+            else {
+                res.end('The File Has Benn Created With Success !') ; 
+            }
+        }
+        catch ( error ) {
+            console.log(error) ;
         }
     }
-    catch ( error ) {
-        console.log(error) ;
-    }
-    
-    
-    
 }) ;
 
 server.listen(PORT , () => {
