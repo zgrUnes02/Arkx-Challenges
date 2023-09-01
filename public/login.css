@@ -1,0 +1,25 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+
+.container {
+    margin: 200px auto;
+    border: solid 2px black;
+    width: 500px;
+    padding: 50px ;
+    box-shadow: 0 0 45px black;
+    border-radius: 20px;
+    background-color: black;
+    border: solid 2px white;
+}
+
+.container label {
+    color: white;
+}
