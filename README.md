@@ -1,2 +1,2 @@
 # arkx-challenges
-Here you can all Arkx's challenges 
+Here you can find all Arkx's challenges 
